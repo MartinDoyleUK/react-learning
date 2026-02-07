@@ -47,24 +47,25 @@ pnpm build:19
 ## 📚 Learning Path
 
 ### Beginners - Start Here
-1. **React 17 App** - Learn core concepts
-   - [Hooks Basics](./features/hooks/) - useState, useEffect, useContext
-   - [Component Patterns](./features/patterns/) - Props, composition, lifting state
-   - [Custom Hooks](./features/patterns/custom-hooks.md) - Reusable logic
+1. **React 17 App** (`apps/react-17/`) - Learn core concepts
+   - Hooks Basics — useState, useEffect, useContext (see `src/App.jsx`)
+   - Component Patterns — Props, composition, lifting state
+   - Custom Hooks — Reusable logic (see `src/hooks/`)
 
 ### Intermediate - Level Up
-2. **React 18 App** - Concurrent features
-   - [Automatic Batching](./features/react-18/automatic-batching.md)
-   - [useTransition](./features/hooks/useTransition.md)
-   - [useDeferredValue](./features/hooks/useDeferredValue.md)
-   - [useSyncExternalStore](./features/hooks/useSyncExternalStore.md)
+2. **React 18 App** (`apps/react-18/`) - Concurrent features
+   - Automatic Batching (see `src/components/AutoBatchingDemo.jsx`)
+   - useTransition & useDeferredValue (see `src/App.jsx`)
+   - useSyncExternalStore (see `src/hooks/useWindowSize.js`)
+   - [React 17 vs 18 Guide](./version-differences/17-vs-18.md)
 
 ### Advanced - Master Modern React
-3. **React 19 App** - Latest features
-   - [Actions Pattern](./features/react-19/actions.md)
-   - [useActionState](./features/hooks/useActionState.md)
-   - [useOptimistic](./features/hooks/useOptimistic.md)
-   - [Document Metadata](./features/react-19/document-metadata.md)
+3. **React 19 App** (`apps/react-19/`) - Latest features
+   - Actions Pattern (see `src/components/TaskForm.jsx`)
+   - useActionState & useFormStatus (see `src/components/SubmitButton.jsx`)
+   - useOptimistic (see `src/App.jsx`)
+   - Document Metadata (see `src/pages/Settings.jsx`)
+   - [React 18 vs 19 Guide](./version-differences/18-vs-19.md)
 
 ## 📖 Documentation Structure
 
@@ -73,21 +74,10 @@ docs/
 ├── README.md                          # You are here
 ├── getting-started.md                 # Detailed setup & troubleshooting
 │
-├── features/
-│   ├── hooks/                         # Hook reference docs
-│   ├── patterns/                      # Design patterns
-│   ├── react-18/                      # React 18 specific features
-│   └── react-19/                      # React 19 specific features
-│
-├── version-differences/               # Migration guides
-│   ├── 17-vs-18.md
-│   ├── 18-vs-19.md
-│   └── migration-guide.md
-│
-└── api-reference/                     # Complete API docs by version
-    ├── react-17.md
-    ├── react-18.md
-    └── react-19.md
+└── version-differences/               # Migration guides
+    ├── README.md
+    ├── 17-vs-18.md
+    └── 18-vs-19.md
 ```
 
 ## 🎓 What You'll Learn

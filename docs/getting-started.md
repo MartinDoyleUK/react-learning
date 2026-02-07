@@ -260,9 +260,8 @@ pnpm build
 
 ## Next Steps
 
-- Read the [Feature Documentation](./features/)
-- Explore [Version Differences](./version-differences/)
-- Check the [API Reference](./api-reference/)
+- Explore [Version Differences](./version-differences/) — migration guides between React 17, 18 & 19
+- Read the source code — every file has detailed comments explaining features
 - Build something with what you've learned!
 
 ## Getting Help

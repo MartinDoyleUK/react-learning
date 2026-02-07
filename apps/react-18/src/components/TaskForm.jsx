@@ -23,6 +23,11 @@ export default function TaskForm({ onAdd, editingTask, onUpdate, onCancelEdit })
       setTitle(editingTask.title);
       setDescription(editingTask.description);
       setPriority(editingTask.priority);
+    } else {
+      // Reset form when editingTask becomes null (e.g. cancel edit)
+      setTitle('');
+      setDescription('');
+      setPriority('medium');
     }
   }, [editingTask]);
 

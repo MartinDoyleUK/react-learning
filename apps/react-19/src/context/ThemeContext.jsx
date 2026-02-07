@@ -10,7 +10,7 @@
  * Also demonstrates use() vs useContext — see Settings.jsx for
  * the use() version.
  */
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useLayoutEffect } from 'react';
 
 const ThemeContext = createContext(undefined);
 
@@ -20,17 +20,16 @@ export function ThemeProvider({ children }) {
   });
 
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => {
-      const next = prev === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', next);
-      document.documentElement.setAttribute('data-theme', next);
-      return next;
-    });
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   }, []);
 
-  if (typeof document !== 'undefined') {
+  // Sync the data-theme attribute & localStorage whenever theme changes.
+  // useLayoutEffect runs synchronously after DOM mutations but before
+  // the browser paints, preventing a flash of the wrong theme.
+  useLayoutEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-  }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   return (
     // 🆕 React 19: <ThemeContext value={…}> — no .Provider needed!

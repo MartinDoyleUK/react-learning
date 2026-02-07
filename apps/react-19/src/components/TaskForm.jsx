@@ -14,11 +14,17 @@
  *
  * Combined with useFormStatus (in SubmitButton), this gives you
  * a complete form solution with built-in loading states.
+ *
+ * This component also supports editing an existing task. When
+ * `editingTask` is provided, the form pre-fills with the task's
+ * values and switches to "update" mode.
  */
-import { useActionState } from 'react';
+import { useActionState, useRef, useEffect } from 'react';
 import SubmitButton from './SubmitButton';
 
-export default function TaskForm({ onAdd }) {
+export default function TaskForm({ onAdd, editingTask, onUpdate, onCancelEdit }) {
+  const formRef = useRef(null);
+
   // 🆕 useActionState: manages form submission state automatically
   const [formState, formAction, isPending] = useActionState(
     async (previousState, formData) => {
@@ -27,26 +33,46 @@ export default function TaskForm({ onAdd }) {
       const priority = formData.get('priority');
 
       if (!title) {
-        return { error: 'Title is required' };
+        // Return error state — we also include the submitted values
+        // so the form can be repopulated (the form auto-resets on
+        // action completion, so without this the user loses input).
+        return { error: 'Title is required', values: { title: '', description, priority } };
       }
 
       // Simulate async operation (e.g., API call)
       await new Promise((resolve) => setTimeout(resolve, 400));
 
-      onAdd({ title, description, priority });
+      if (editingTask) {
+        onUpdate({
+          id: editingTask.id,
+          updates: { title, description, priority },
+        });
+      } else {
+        onAdd({ title, description, priority });
+      }
 
       return { success: true };
     },
     null
   );
 
+  // When we start editing a task, pre-fill the form with its values
+  useEffect(() => {
+    if (editingTask && formRef.current) {
+      const form = formRef.current;
+      form.elements.namedItem('title').value = editingTask.title;
+      form.elements.namedItem('description').value = editingTask.description;
+      form.elements.namedItem('priority').value = editingTask.priority;
+    }
+  }, [editingTask]);
+
   return (
     // 🆕 form action: pass the action function directly to <form>
     // No need for onSubmit + e.preventDefault()!
-    // The form auto-resets after a successful submission.
-    <form action={formAction} className="task-form">
+    // The form auto-resets after the action completes.
+    <form ref={formRef} action={formAction} className="task-form">
       <h3>
-        ➕ New Task
+        {editingTask ? '✏️ Edit Task' : '➕ New Task'}
         <span className="feature-tag">useActionState</span>
       </h3>
 
@@ -58,11 +84,16 @@ export default function TaskForm({ onAdd }) {
           type="text"
           placeholder="Task title"
           required
+          // If the action returned an error, repopulate the field
+          // so the user doesn't lose their input.
+          defaultValue={formState?.values?.title ?? ''}
+          key={formState?.values?.title ?? 'title'}
         />
         <select
           name="priority"
           className="form-input"
-          defaultValue="medium"
+          defaultValue={formState?.values?.priority ?? 'medium'}
+          key={formState?.values?.priority ?? 'priority'}
           style={{ flex: '0 0 140px' }}
         >
           <option value="high">🔴 High</option>
@@ -76,12 +107,26 @@ export default function TaskForm({ onAdd }) {
           name="description"
           className="form-input"
           placeholder="Description (optional)"
+          defaultValue={formState?.values?.description ?? ''}
+          key={formState?.values?.description ?? 'description'}
         />
       </div>
 
       <div className="form-row">
         {/* 🆕 SubmitButton uses useFormStatus internally */}
-        <SubmitButton />
+        <SubmitButton
+          label={editingTask ? 'Update Task' : 'Add Task'}
+          pendingLabel={editingTask ? 'Updating…' : 'Adding…'}
+        />
+        {editingTask && (
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={onCancelEdit}
+          >
+            Cancel
+          </button>
+        )}
       </div>
 
       {formState?.error && (

@@ -211,7 +211,12 @@ export default function App() {
               />
 
               {/* 🆕 TaskForm uses useActionState + useFormStatus */}
-              <TaskForm onAdd={handleAddTask} />
+              <TaskForm
+                onAdd={handleAddTask}
+                editingTask={editingTask}
+                onUpdate={handleUpdateTask}
+                onCancelEdit={handleCancelEdit}
+              />
 
               <div className={isStale ? 'pending-indicator' : ''}>
                 <TaskList
