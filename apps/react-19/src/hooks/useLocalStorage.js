@@ -9,8 +9,9 @@
  *  • Lazy initialiser function for useState
  *  • useEffect for side-effect synchronisation
  *  • JSON serialisation / deserialisation
+ *  • useDebugValue — displays a label in React DevTools
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useDebugValue } from 'react';
 
 export default function useLocalStorage(key, defaultValue) {
   // Lazy initialiser — only runs on first render
@@ -31,6 +32,9 @@ export default function useLocalStorage(key, defaultValue) {
       // Storage full or blocked — fail silently
     }
   }, [key, value]);
+
+  // ⚡ useDebugValue: shows "key: value" in React DevTools
+  useDebugValue({ key, value }, ({ key: k, value: v }) => `${k}: ${JSON.stringify(v)}`);
 
   return [value, setValue];
 }

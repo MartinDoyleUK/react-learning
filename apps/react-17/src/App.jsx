@@ -5,7 +5,7 @@
  *
  *  1.  New JSX Transform      — no `import React` in JSX files
  *  2.  useState               — local component state
- *  3.  useEffect              — side effects (persist tasks)
+ *  3.  useEffect              — side effects (document title, keyboard shortcut)
  *  4.  useReducer             — complex state management (tasks CRUD)
  *  5.  useContext             — theme via ThemeProvider / useTheme
  *  6.  useMemo               — derived data (filtered tasks, stats)
@@ -13,7 +13,7 @@
  *  8.  useRef                 — DOM reference (focus search bar)
  *  9.  useLayoutEffect        — synchronous post-DOM-update work
  * 10.  React.memo             — skip re-renders (TaskItem, TaskStats)
- * 11.  Custom Hooks           — useLocalStorage, useDebounce
+ * 11.  Custom Hooks           — useDebounce, useLocalStorage (defined in hooks/)
  * 12.  Context API            — ThemeContext + useTheme
  * 13.  Error Boundaries       — class component (ErrorBoundary)
  * 14.  Portals                — Modal rendered into #modal-root
@@ -23,7 +23,9 @@
  * 18.  Fragments              — <> … </> grouping without extra DOM
  * 19.  key prop               — stable keys in task list
  * 20.  Event delegation       — events on root container (React 17 change)
- * 21.  Async cleanup          — useEffect cleanup runs after paint
+ * 21.  useEffect cleanup      — runs before next effect; effects run after paint
+ * 22.  useImperativeHandle    — custom ref API (FancyInput)
+ * 23.  useDebugValue          — DevTools labels in custom hooks
  */
 import { useState, useReducer, useMemo, useCallback, useRef, useEffect, lazy, Suspense } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
@@ -38,6 +40,7 @@ import Modal from './components/Modal';
 import ErrorBoundary from './components/ErrorBoundary';
 import BuggyComponent from './components/BuggyComponent';
 import Timer from './components/Timer';
+import ImperativeHandleDemo from './components/ImperativeHandleDemo';
 
 // ⚡ React.lazy: code-split the Settings page into a separate chunk
 const Settings = lazy(() => import('./pages/Settings'));
@@ -188,6 +191,9 @@ export default function App() {
                 onDelete={handleDeleteTask}
                 onEdit={handleEditTask}
               />
+
+              {/* useImperativeHandle: custom ref API */}
+              <ImperativeHandleDemo />
 
               {/* Demo: trigger error boundary */}
               <div style={{ marginTop: 24 }}>

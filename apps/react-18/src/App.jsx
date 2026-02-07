@@ -10,6 +10,10 @@
  *  🆕 5.  useId                  — generate unique IDs (see TaskForm)
  *  🆕 6.  useSyncExternalStore   — subscribe to external stores
  *  🆕 7.  Strict Mode effects    — double-fire in dev to catch bugs
+ *  🆕 8.  flushSync              — opt out of batching for immediate DOM updates
+ *  🆕 9.  useInsertionEffect     — inject styles before DOM mutations (CSS-in-JS)
+ *  10. useImperativeHandle       — custom ref API (paired with forwardRef)
+ *  11. useDebugValue             — DevTools labels in custom hooks
  *
  * All React 17 features continue to work unchanged.
  */
@@ -39,6 +43,9 @@ import ErrorBoundary from './components/ErrorBoundary';
 import BuggyComponent from './components/BuggyComponent';
 import Timer from './components/Timer';
 import AutoBatchingDemo from './components/AutoBatchingDemo';
+import FlushSyncDemo from './components/FlushSyncDemo';
+import UseInsertionEffectDemo from './components/UseInsertionEffectDemo';
+import ImperativeHandleDemo from './components/ImperativeHandleDemo';
 
 const Settings = lazy(() => import('./pages/Settings'));
 
@@ -200,6 +207,15 @@ export default function App() {
                   onEdit={handleEditTask}
                 />
               </div>
+
+              {/* 🆕 flushSync: opt out of batching */}
+              <FlushSyncDemo />
+
+              {/* 🆕 useInsertionEffect: CSS-in-JS style injection timing */}
+              <UseInsertionEffectDemo />
+
+              {/* useImperativeHandle: custom ref API */}
+              <ImperativeHandleDemo />
 
               <div style={{ marginTop: 24 }}>
                 <BuggyComponent />

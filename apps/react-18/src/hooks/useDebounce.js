@@ -7,11 +7,11 @@
  *
  * Demonstrates:
  *  • useState + useEffect working together
- *  • useEffect cleanup (clearTimeout) — in React 17 cleanup runs
- *    asynchronously AFTER the screen is painted, unlike React 16
- *    where it ran synchronously before painting.
+ *  • useEffect cleanup (clearTimeout) — cleanup runs before the next
+ *    effect or on unmount; effects run after paint.
+ *  • useDebugValue — displays a label in React DevTools for this hook
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useDebugValue } from 'react';
 
 export default function useDebounce(value, delay = 300) {
   const [debouncedValue, setDebouncedValue] = useState(value);
@@ -20,10 +20,13 @@ export default function useDebounce(value, delay = 300) {
     const timer = setTimeout(() => setDebouncedValue(value), delay);
 
     // Cleanup: cancel the pending timeout when value/delay changes
-    // React 17 improvement: this cleanup fires asynchronously after
-    // the screen updates, preventing visual jank.
     return () => clearTimeout(timer);
   }, [value, delay]);
+
+  // ⚡ useDebugValue: shows a label in React DevTools
+  //    When you inspect a component using this hook, DevTools will
+  //    display "Debounce: <value>" instead of just the raw state.
+  useDebugValue(debouncedValue, (val) => `Debounce: ${JSON.stringify(val)}`);
 
   return debouncedValue;
 }

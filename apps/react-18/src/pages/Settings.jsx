@@ -57,6 +57,8 @@ export default function Settings() {
           <li><strong>useId</strong> — generate stable unique IDs for accessibility</li>
           <li><strong>useSyncExternalStore</strong> — safe subscription to external stores</li>
           <li><strong>Strict Mode</strong> — double-fires effects in dev to catch cleanup bugs</li>
+          <li><strong>flushSync</strong> — opt out of batching for immediate DOM updates</li>
+          <li><strong>useInsertionEffect</strong> — inject styles before DOM mutations (CSS-in-JS)</li>
         </ul>
       </div>
     </div>

@@ -4,35 +4,39 @@
  * createContext + Provider + useContext is the standard way to share
  * values across the component tree without prop-drilling.
  *
- * In React 17 you MUST wrap children with <ThemeContext.Provider>.
- * (React 19 will simplify this — see the React 19 app.)
+ * To provide a value, wrap children with <ThemeContext.Provider>.
+ *
+ * useLayoutEffect synchronises the data-theme DOM attribute with state.
+ * It fires after DOM mutations but before the browser paints, so the
+ * user never sees a flash of the wrong theme.
  */
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useLayoutEffect } from 'react';
 
 const ThemeContext = createContext(undefined);
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
     // Read initial preference from localStorage
-    return localStorage.getItem('theme') || 'light';
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('theme') || 'light';
+    }
+    return 'light';
   });
 
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => {
-      const next = prev === 'light' ? 'dark' : 'light';
-      localStorage.setItem('theme', next);
-      document.documentElement.setAttribute('data-theme', next);
-      return next;
-    });
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   }, []);
 
-  // Set the initial data-theme attribute on mount
-  if (typeof document !== 'undefined') {
+  // Sync the data-theme attribute & localStorage whenever theme changes.
+  // useLayoutEffect runs synchronously after DOM mutations but before
+  // the browser paints, preventing a flash of the wrong theme.
+  useLayoutEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
-  }
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   return (
-    // React 17: must use <ThemeContext.Provider value={…}>
+    // Provide a value with <ThemeContext.Provider value={…}>
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>

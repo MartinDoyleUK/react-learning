@@ -565,7 +565,7 @@ textarea.form-input {
   align-items: center;
 }
 
-/* ---------- auto-batching demo (React 18) ---------- */
+/* ---------- demo card / log ---------- */
 .batching-demo {
   background: var(--bg-secondary);
   border: 1px solid var(--border);
@@ -584,24 +584,6 @@ textarea.form-input {
   max-height: 120px;
   overflow-y: auto;
   color: var(--text-secondary);
-}
-
-/* ---------- pending indicator (React 18/19) ---------- */
-.pending-indicator {
-  opacity: 0.6;
-  transition: opacity 0.15s;
-}
-
-/* ---------- optimistic item (React 19) ---------- */
-.task-item.optimistic {
-  opacity: 0.7;
-  border-style: dashed;
-}
-
-/* ---------- form status (React 19) ---------- */
-.btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 /* ---------- responsive ---------- */

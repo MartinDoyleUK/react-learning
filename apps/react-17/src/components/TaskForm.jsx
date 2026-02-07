@@ -17,12 +17,17 @@ export default function TaskForm({ onAdd, editingTask, onUpdate, onCancelEdit })
   const [description, setDescription] = useState('');
   const [priority, setPriority] = useState('medium');
 
-  // Populate form when editing an existing task
+  // Populate form when editing an existing task, or reset when not editing
   useEffect(() => {
     if (editingTask) {
       setTitle(editingTask.title);
       setDescription(editingTask.description);
       setPriority(editingTask.priority);
+    } else {
+      // Reset form when editingTask becomes null
+      setTitle('');
+      setDescription('');
+      setPriority('medium');
     }
   }, [editingTask]);
 

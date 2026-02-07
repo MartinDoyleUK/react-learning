@@ -11,6 +11,7 @@
  *  🆕 6.  <Context> provider    — no .Provider wrapper (see ThemeContext)
  *  🆕 7.  Document metadata     — <title>, <meta> in components (see Settings)
  *  🆕 8.  ref cleanup functions — ref callbacks return cleanup
+ *  🆕 9.  Asset loading         — <link>, <script async> dedup (see Settings)
  */
 import {
   useState,
@@ -39,6 +40,9 @@ import ErrorBoundary from './components/ErrorBoundary';
 import BuggyComponent from './components/BuggyComponent';
 import Timer from './components/Timer';
 import AutoBatchingDemo from './components/AutoBatchingDemo';
+import FlushSyncDemo from './components/FlushSyncDemo';
+import UseInsertionEffectDemo from './components/UseInsertionEffectDemo';
+import ImperativeHandleDemo from './components/ImperativeHandleDemo';
 
 const Settings = lazy(() => import('./pages/Settings'));
 
@@ -217,6 +221,15 @@ export default function App() {
                   onEdit={handleEditTask}
                 />
               </div>
+
+              {/* flushSync: opt out of batching (React 18+) */}
+              <FlushSyncDemo />
+
+              {/* useInsertionEffect: CSS-in-JS style injection timing (React 18+) */}
+              <UseInsertionEffectDemo />
+
+              {/* useImperativeHandle: custom ref API (no forwardRef in React 19!) */}
+              <ImperativeHandleDemo />
 
               <div style={{ marginTop: 24 }}>
                 <BuggyComponent />

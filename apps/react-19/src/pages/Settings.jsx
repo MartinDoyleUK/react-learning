@@ -55,6 +55,28 @@ export default function Settings() {
         </p>
       </div>
 
+      {/* 🆕 Asset Loading: React 19 deduplicates and hoists resource hints */}
+      <div className="settings-group">
+        <label>
+          Asset Loading
+          <span className="feature-tag">React 19</span>
+        </label>
+        <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+          React 19 can hoist <code>{'<link rel="preload">'}</code>,{' '}
+          <code>{'<script async>'}</code>, and{' '}
+          <code>{'<link rel="stylesheet">'}</code> to <code>{'<head>'}</code>.
+          It deduplicates resources so the same asset is only loaded once, even
+          if multiple components request it.
+        </p>
+        {/*
+          🆕 React 19 automatically hoists these to <head> and deduplicates:
+          - Stylesheets with precedence are ordered correctly
+          - Preloads hint to the browser to start fetching early
+          - Async scripts are deduplicated and loaded once
+        */}
+        <link rel="preload" href="/src/index.css" as="style" />
+      </div>
+
       <div className="settings-group">
         <label>🆕 React 19 Highlights</label>
         <ul style={{ paddingLeft: '20px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
@@ -66,6 +88,7 @@ export default function Settings() {
           <li><strong>Context as provider</strong> — {'<Context value={}>'} replaces {'<Context.Provider>'}</li>
           <li><strong>Document metadata</strong> — {'<title>'}, {'<meta>'}, {'<link>'} in components</li>
           <li><strong>ref cleanup</strong> — ref callbacks can return cleanup functions</li>
+          <li><strong>Asset loading</strong> — {'<link>'}, {'<script async>'} deduplication and hoisting</li>
         </ul>
       </div>
     </div>
