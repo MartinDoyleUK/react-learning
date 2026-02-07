@@ -1,0 +1,22 @@
+{
+  "name": "react-learning",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "dev:17": "turbo dev --filter=react-17-app",
+    "dev:18": "turbo dev --filter=react-18-app",
+    "dev:19": "turbo dev --filter=react-19-app",
+    "build": "turbo build",
+    "build:17": "turbo build --filter=react-17-app",
+    "build:18": "turbo build --filter=react-18-app",
+    "build:19": "turbo build --filter=react-19-app"
+  },
+  "packageManager": "pnpm@10.22.0",
+  "devDependencies": {
+    "turbo": "^2.3.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  }
+}
+
