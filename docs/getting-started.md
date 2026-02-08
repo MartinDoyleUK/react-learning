@@ -8,7 +8,7 @@ This guide will help you set up and run the React Learning Project on your machi
 - **Node.js** 18.0.0 or higher
   - Check: `node --version`
   - Download: https://nodejs.org/
-- **pnpm** 8.0.0 or higher
+- **pnpm** 10.0.0 or higher
   - Check: `pnpm --version`
   - Install: `npm install -g pnpm`
 
@@ -111,12 +111,12 @@ react-learning/
 │   │   │   ├── hooks/          # Custom hooks
 │   │   │   ├── pages/          # Lazy-loaded pages
 │   │   │   ├── reducers/       # Reducer logic
-│   │   │   ├── App.jsx         # Main app component
-│   │   │   ├── main.jsx        # Entry point
+│   │   │   ├── App.tsx         # Main app component
+│   │   │   ├── main.tsx        # Entry point
 │   │   │   └── index.css       # Global styles
 │   │   ├── index.html
 │   │   ├── package.json
-│   │   └── vite.config.js
+│   │   └── vite.config.ts
 │   ├── react-18/               # React 18 app (similar structure)
 │   └── react-19/               # React 19 app (similar structure)
 ├── docs/                       # Documentation
@@ -129,14 +129,14 @@ react-learning/
 
 ### 1. Start with React 17
 
-Open `apps/react-17/src/App.jsx` - this is the main entry point with detailed comments explaining every feature.
+Open `apps/react-17/src/App.tsx` - this is the main entry point with detailed comments explaining every feature.
 
 ### 2. Compare Versions
 
 Open the same file in all three versions side-by-side to see how features differ:
-- `apps/react-17/src/App.jsx`
-- `apps/react-18/src/App.jsx`
-- `apps/react-19/src/App.jsx`
+- `apps/react-17/src/App.tsx`
+- `apps/react-18/src/App.tsx`
+- `apps/react-19/src/App.tsx`
 
 ### 3. Follow the Comments
 
@@ -190,7 +190,7 @@ lsof -ti:5170 | xargs kill -9
 
 # Or use a different port
 cd apps/react-17
-PORT=5171 pnpm dev
+pnpm dev -- --port 5171
 ```
 
 ### Dependencies Not Installing
@@ -273,5 +273,5 @@ pnpm build
 
 ---
 
-Ready to start? Open the React 17 app and explore `src/App.jsx`!
+Ready to start? Open the React 17 app and explore `src/App.tsx`!
 

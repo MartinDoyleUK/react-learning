@@ -15,7 +15,7 @@ Each version is a **fully functional task manager** application that demonstrate
 
 ### Prerequisites
 - Node.js 18+ (for React 19 support)
-- pnpm 8+
+- pnpm 10+
 
 ### Installation
 
@@ -48,23 +48,23 @@ pnpm build:19
 
 ### Beginners - Start Here
 1. **React 17 App** (`apps/react-17/`) - Learn core concepts
-   - Hooks Basics — useState, useEffect, useContext (see `src/App.jsx`)
+   - Hooks Basics — useState, useEffect, useContext (see `src/App.tsx`)
    - Component Patterns — Props, composition, lifting state
    - Custom Hooks — Reusable logic (see `src/hooks/`)
 
 ### Intermediate - Level Up
 2. **React 18 App** (`apps/react-18/`) - Concurrent features
-   - Automatic Batching (see `src/components/AutoBatchingDemo.jsx`)
-   - useTransition & useDeferredValue (see `src/App.jsx`)
-   - useSyncExternalStore (see `src/hooks/useWindowSize.js`)
+   - Automatic Batching (see `src/components/AutoBatchingDemo.tsx`)
+   - useTransition & useDeferredValue (see `src/App.tsx`)
+   - useSyncExternalStore (see `src/hooks/useWindowSize.ts`)
    - [React 17 vs 18 Guide](./version-differences/17-vs-18.md)
 
 ### Advanced - Master Modern React
 3. **React 19 App** (`apps/react-19/`) - Latest features
-   - Actions Pattern (see `src/components/TaskForm.jsx`)
-   - useActionState & useFormStatus (see `src/components/SubmitButton.jsx`)
-   - useOptimistic (see `src/App.jsx`)
-   - Document Metadata (see `src/pages/Settings.jsx`)
+   - Actions Pattern (see `src/components/TaskForm.tsx`)
+   - useActionState & useFormStatus (see `src/components/SubmitButton.tsx`)
+   - useOptimistic (see `src/App.tsx`)
+   - Document Metadata (see `src/pages/Settings.tsx`)
    - [React 18 vs 19 Guide](./version-differences/18-vs-19.md)
 
 ## 📖 Documentation Structure
@@ -82,7 +82,7 @@ docs/
 
 ## 🎓 What You'll Learn
 
-### React 17 - Foundation (20+ Features)
+### React 17 - Foundation
 - ✅ All core hooks (useState, useEffect, useContext, useReducer, etc.)
 - ✅ Component patterns (composition, children, render props)
 - ✅ Performance optimization (React.memo, useMemo, useCallback)
@@ -149,14 +149,6 @@ By completing this project, you will:
 - **Progressive Enhancement**: Concepts build from React 17 → 18 → 19
 - **Production Ready**: All patterns are production-quality, not toy examples
 - **Comments Everywhere**: Learn by reading - every feature is explained
-
-## 🤝 Contributing
-
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
-
-## 📄 License
-
-MIT - see [LICENSE](../LICENSE) for details.
 
 ---
 

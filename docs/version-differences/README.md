@@ -177,8 +177,8 @@ Upgrade one part of your app at a time.
 | Version | Released | Status | Support Until |
 |---------|----------|--------|---------------|
 | React 19 | Dec 2024 | ✅ Current | TBD |
-| React 18 | Mar 2022 | ✅ Maintained | ~2025-2026 |
-| React 17 | Oct 2020 | ⚠️ Maintenance | ~2024-2025 |
+| React 18 | Mar 2022 | ✅ Maintained | TBD |
+| React 17 | Oct 2020 | ⚠️ Legacy | Ended |
 | React 16 | Sep 2017 | ❌ Unsupported | Ended |
 
 **Maintenance mode** = Security fixes only, no new features
@@ -188,7 +188,7 @@ Upgrade one part of your app at a time.
 - [Official React Blog](https://react.dev/blog)
 - [React RFCs](https://github.com/reactjs/rfcs)
 - [React 18 Working Group](https://github.com/reactwg/react-18)
-- [Upgrade Tools](https://react.dev/learn/upgrade-to-react-18)
+- [React 18 Upgrade Guide](https://react.dev/blog/2022/03/08/react-18-upgrade-guide)
 
 ---
 
