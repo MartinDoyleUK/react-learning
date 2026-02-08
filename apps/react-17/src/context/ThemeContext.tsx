@@ -20,6 +20,10 @@ import {
 } from 'react';
 import type { Theme, ThemeContextValue } from '../types';
 
+function isTheme(value: string | null): value is Theme {
+  return value === 'light' || value === 'dark';
+}
+
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 interface ThemeProviderProps {
@@ -29,7 +33,8 @@ interface ThemeProviderProps {
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(() => {
     // Read initial preference from localStorage
-    return (localStorage.getItem('theme') as Theme) || 'light';
+    const storedTheme = localStorage.getItem('theme');
+    return isTheme(storedTheme) ? storedTheme : 'light';
   });
 
   const toggleTheme = useCallback(() => {
@@ -66,4 +71,3 @@ export function useTheme(): ThemeContextValue {
 }
 
 export default ThemeContext;
-

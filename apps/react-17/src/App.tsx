@@ -23,7 +23,7 @@
  * 18.  Fragments              — <> … </> grouping without extra DOM
  * 19.  key prop               — stable keys in task list
  * 20.  Event delegation       — events on root container (React 17 change)
- * 21.  useEffect cleanup      — runs before next effect; effects run after paint
+ * 21.  useEffect cleanup      — runs before next effect and on unmount
  * 22.  useImperativeHandle    — custom ref API (FancyInput)
  * 23.  useDebugValue          — DevTools labels in custom hooks
  */
@@ -232,4 +232,3 @@ export default function App() {
     </ThemeProvider>
   );
 }
-

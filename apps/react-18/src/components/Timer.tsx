@@ -1,9 +1,9 @@
 /**
  * ⚡ FEATURES: useEffect cleanup, useRef, useState
  *
- * Demonstrates useEffect cleanup timing:
- *   Cleanup runs ASYNCHRONOUSLY after the screen updates.
- *   This change (introduced in React 17) prevents blocking the browser paint.
+ * Demonstrates useEffect cleanup guarantees:
+ *   Cleanup runs before the next effect and on unmount.
+ *   Scheduling can vary by interaction, so avoid depending on exact paint timing.
  *
  * Also shows useRef to hold the interval ID without causing
  * re-renders (unlike useState, mutating a ref is silent).
@@ -22,7 +22,7 @@ export default function Timer() {
       }, 1000);
     }
 
-    // Cleanup: runs asynchronously after paint (React 17+)
+    // Cleanup: always runs before the next effect and on unmount
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -57,4 +57,3 @@ export default function Timer() {
     </div>
   );
 }
-

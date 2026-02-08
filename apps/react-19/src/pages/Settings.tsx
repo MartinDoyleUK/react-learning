@@ -85,7 +85,7 @@ export default function Settings() {
           - Preloads hint to the browser to start fetching early
           - Async scripts are deduplicated and loaded once
         */}
-        <link rel="preload" href="/src/index.css" as="style" />
+        <link rel="preload" href="/asset-loading-demo.css" as="style" />
       </div>
 
       <div className="settings-group">
@@ -133,4 +133,3 @@ export default function Settings() {
     </div>
   );
 }
-

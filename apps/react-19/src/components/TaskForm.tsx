@@ -73,22 +73,28 @@ export default function TaskForm({
     null
   );
 
-  // When we start editing a task, pre-fill the form with its values
+  // Keep uncontrolled inputs in sync when entering/leaving edit mode.
   useEffect(() => {
-    if (editingTask && formRef.current) {
-      const form = formRef.current;
-      const titleInput = form.elements.namedItem('title') as HTMLInputElement;
-      const descriptionInput = form.elements.namedItem(
-        'description'
-      ) as HTMLTextAreaElement;
-      const prioritySelect = form.elements.namedItem(
-        'priority'
-      ) as HTMLSelectElement;
+    if (!formRef.current) return;
 
+    const form = formRef.current;
+    const titleInput = form.elements.namedItem('title') as HTMLInputElement;
+    const descriptionInput = form.elements.namedItem(
+      'description'
+    ) as HTMLTextAreaElement;
+    const prioritySelect = form.elements.namedItem(
+      'priority'
+    ) as HTMLSelectElement;
+
+    if (editingTask) {
       if (titleInput) titleInput.value = editingTask.title;
       if (descriptionInput) descriptionInput.value = editingTask.description;
       if (prioritySelect) prioritySelect.value = editingTask.priority;
+      return;
     }
+
+    // Leaving edit mode: clear stale values so "New Task" starts fresh.
+    form.reset();
   }, [editingTask]);
 
   return (
@@ -162,4 +168,3 @@ export default function TaskForm({
     </form>
   );
 }
-

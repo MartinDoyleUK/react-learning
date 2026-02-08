@@ -65,6 +65,7 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
           className="btn-icon"
           onClick={() => onEdit(task)}
           title="Edit"
+          aria-label={`Edit "${task.title}"`}
         >
           ✏️
         </button>
@@ -72,6 +73,7 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
           className="btn-icon"
           onClick={() => onDelete(task.id)}
           title="Delete"
+          aria-label={`Delete "${task.title}"`}
         >
           🗑️
         </button>
@@ -81,4 +83,3 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
 }
 
 export default memo(TaskItem);
-
