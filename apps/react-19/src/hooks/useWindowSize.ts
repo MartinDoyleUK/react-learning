@@ -17,6 +17,11 @@
 import { useSyncExternalStore } from 'react';
 import type { WindowSize } from '../types';
 
+// ⚠️ FOOT-GUN: subscribe, getWidthSnapshot, and getHeightSnapshot are
+// defined at module scope so they have stable references. If you defined
+// subscribe as an inline function inside the component, useSyncExternalStore
+// would see a new function on every render, unsubscribe/resubscribe each
+// time, and potentially cause an infinite loop.
 function subscribe(callback: () => void): () => void {
   window.addEventListener('resize', callback);
   return () => window.removeEventListener('resize', callback);

@@ -82,4 +82,12 @@ function TaskItem({ task, onToggle, onDelete, onEdit }: TaskItemProps) {
   );
 }
 
+// React.memo: skip re-renders when props haven't changed (shallow compare).
+//
+// ⚠️ FOOT-GUN: memo only does a shallow comparison. If a parent passes
+// inline objects, arrays, or arrow functions as props (e.g.
+// onToggle={() => toggle(id)}), a new reference is created every render
+// and memo can't help. Fix: lift callbacks with useCallback, or move
+// object creation out of render. In this app, the callbacks are stable
+// because App.tsx wraps them in useCallback.
 export default memo(TaskItem);

@@ -48,8 +48,9 @@ export default function TaskForm({
 
       if (!title) {
         // Return error state — we also include the submitted values
-        // so the form can be repopulated (the form auto-resets on
-        // action completion, so without this the user loses input).
+        // so the form can be repopulated. Form actions may reset
+        // uncontrolled inputs on completion, so without returning
+        // these values the user would lose their input.
         return {
           error: 'Title is required',
           values: { title: '', description, priority },
@@ -98,9 +99,13 @@ export default function TaskForm({
   }, [editingTask]);
 
   return (
-    // 🆕 form action: pass the action function directly to <form>
+    // 🆕 form action: pass the action function directly to <form>.
     // No need for onSubmit + e.preventDefault()!
-    // The form auto-resets after the action completes.
+    //
+    // ⚠️ FOOT-GUN: Form actions may reset uncontrolled inputs when the
+    // action completes. Return submitted values in the action's state
+    // so you can repopulate fields on validation errors (see the
+    // defaultValue + key pattern on inputs below).
     <form ref={formRef} action={formAction} className="task-form">
       <h3>
         {editingTask ? '✏️ Edit Task' : '➕ New Task'}

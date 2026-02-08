@@ -21,6 +21,11 @@ export default function useLocalStorage<T>(
   const [value, setValue] = useState<T>(() => {
     try {
       const stored = localStorage.getItem(key);
+      // ⚠️ FOOT-GUN: `as T` is a type assertion — it tells TypeScript
+      // "trust me, this is T" without any runtime validation. If the
+      // stored JSON doesn't actually match T, you'll get silent bugs.
+      // In production code, validate with a schema library (e.g. Zod)
+      // or a type guard before casting.
       return stored !== null ? (JSON.parse(stored) as T) : defaultValue;
     } catch {
       return defaultValue;

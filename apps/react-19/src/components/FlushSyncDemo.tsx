@@ -79,6 +79,11 @@ export default function FlushSyncDemo() {
           fontSize: '0.85rem',
         }}
       >
+        {/* ⚠️ NOTE: Using index as key is acceptable here because items
+            are append-only and never reordered or filtered. In lists where
+            items can be reordered, deleted, or inserted in the middle,
+            index keys cause React to mismatch state with elements — use
+            a stable unique ID instead (see TaskList for the correct pattern). */}
         {items.map((item, i) => (
           <div
             key={i}

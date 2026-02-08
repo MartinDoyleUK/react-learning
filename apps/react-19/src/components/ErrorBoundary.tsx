@@ -8,11 +8,13 @@
  * no hook equivalent for getDerivedStateFromError / componentDidCatch
  * (even in React 19, this hasn't changed).
  *
- * They do NOT catch errors in:
+ * ⚠️ FOOT-GUN: Error boundaries do NOT catch errors in:
  *  • Event handlers (use try/catch)
- *  • Async code (promises)
+ *  • Async code (promises, setTimeout callbacks)
  *  • Server-side rendering
- *  • Errors in the boundary itself
+ *  • Errors thrown in the boundary itself
+ * These are the most common sources of "why didn't my error
+ * boundary catch this?" confusion.
  */
 import { Component, type ReactNode } from 'react';
 

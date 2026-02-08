@@ -67,6 +67,10 @@ function taskReducer(state: Task[], action: TaskAction): Task[] {
       return [...state, newTask];
     }
 
+    // ⚠️ FOOT-GUN: Always return a NEW array/object — never mutate
+    // `state` directly (e.g. `state[i].completed = true`). React
+    // relies on reference equality to detect changes. If you mutate
+    // and return the same reference, React won't re-render.
     case 'TOGGLE_TASK':
       return state.map((task) =>
         task.id === action.payload

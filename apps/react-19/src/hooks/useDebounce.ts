@@ -16,6 +16,10 @@ import { useState, useEffect, useDebugValue } from 'react';
 export default function useDebounce<T>(value: T, delay: number = 300): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
+  // ⚠️ FOOT-GUN: Forgetting the dependency array (or leaving it empty)
+  // is a common mistake. Without [value, delay], this effect would
+  // either run on every render (no array) or never re-run (empty []).
+  // Both would break the debounce behaviour.
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedValue(value), delay);
 

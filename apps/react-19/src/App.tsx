@@ -43,6 +43,7 @@ import AutoBatchingDemo from './components/AutoBatchingDemo';
 import FlushSyncDemo from './components/FlushSyncDemo';
 import UseInsertionEffectDemo from './components/UseInsertionEffectDemo';
 import ImperativeHandleDemo from './components/ImperativeHandleDemo';
+import RefCleanupDemo from './components/RefCleanupDemo';
 import type { Task, TaskFormData, TaskActionPayload, TaskPriority } from './types';
 
 const Settings = lazy(() => import('./pages/Settings'));
@@ -103,6 +104,13 @@ export default function App() {
     });
   }, [optimisticTasks, deferredSearch, filterPriority]);
 
+  // ⚠️ FOOT-GUN: The empty dependency array [] is safe here because
+  // `dispatch` from useReducer is guaranteed to be a stable reference
+  // (it never changes between renders). If this callback closed over
+  // a state variable instead, [] would create a stale closure that
+  // forever sees the initial value. Always list every variable your
+  // callback reads — except for known-stable refs like dispatch, refs,
+  // and setState functions.
   const handleAddTask = useCallback(
     (task: TaskFormData) => dispatch({ type: 'ADD_TASK', payload: task }),
     []
@@ -225,6 +233,9 @@ export default function App() {
 
               {/* useImperativeHandle: custom ref API (no forwardRef in React 19!) */}
               <ImperativeHandleDemo />
+
+              {/* 🆕 ref cleanup functions: ref callbacks return a cleanup */}
+              <RefCleanupDemo />
 
               <div style={{ marginTop: 24 }}>
                 <BuggyComponent />

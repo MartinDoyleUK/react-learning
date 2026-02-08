@@ -48,6 +48,14 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  // ⚠️ FOOT-GUN: The object literal `{ theme, toggleTheme }` creates a
+  // new reference on every render of ThemeProvider, which makes every
+  // context consumer re-render — even if theme hasn't changed. In a
+  // larger app you should wrap this in useMemo:
+  //   const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
+  // Here it's fine because ThemeProvider only re-renders when `theme`
+  // changes (setTheme is the only trigger), so the new object is
+  // warranted. But watch out for providers that re-render for other reasons.
   return (
     // 🆕 React 19: <ThemeContext value={…}> — no .Provider needed!
     // Before: <ThemeContext.Provider value={{ theme, toggleTheme }}>

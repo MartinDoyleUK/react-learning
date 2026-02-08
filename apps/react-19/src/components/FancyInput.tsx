@@ -76,7 +76,12 @@ export default function FancyInput({
         return inputRef.current?.value ?? '';
       },
     }),
-    [] // deps — recreate handle only when deps change
+    // ⚠️ FOOT-GUN: The empty [] deps array means the handle methods
+    // are created once and never recreated. This is safe because they
+    // only read from `inputRef` (a stable ref). If these methods
+    // closed over component state, they'd capture stale values.
+    // In that case, you'd need to add the state variables to deps.
+    []
   );
 
   return (

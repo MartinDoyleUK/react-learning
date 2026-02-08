@@ -57,6 +57,14 @@ function TaskStats({ tasks }: TaskStatsProps) {
   );
 }
 
-// React.memo: skip re-renders when `tasks` reference hasn't changed
+// React.memo: skip re-renders when `tasks` reference hasn't changed.
+//
+// ⚠️ FOOT-GUN: memo does a SHALLOW prop comparison. For an array prop
+// like `tasks`, it compares the reference, not the contents. This works
+// with useReducer (which returns a new array reference only on dispatch)
+// but would break if the parent created a new array on every render, e.g.
+//   <TaskStats tasks={tasks.filter(...)} />   // ← new array every render!
+// Fix: useMemo the derived array in the parent (which App.tsx already does
+// with `filteredTasks`).
 export default memo(TaskStats);
 

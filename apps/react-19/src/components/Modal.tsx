@@ -27,7 +27,12 @@ export default function Modal({
   onConfirm,
   onCancel,
 }: ModalProps) {
-  // Prevent body scrolling while modal is open
+  // Prevent body scrolling while modal is open.
+  //
+  // ⚠️ FOOT-GUN: Always return a cleanup function when your effect
+  // modifies something external (DOM, subscriptions, timers). Without
+  // the cleanup below, body scroll would stay locked after the modal
+  // unmounts — a common source of "my page won't scroll" bugs.
   useEffect(() => {
     if (!isOpen) return;
 

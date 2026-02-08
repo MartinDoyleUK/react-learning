@@ -9,6 +9,11 @@
  *
  * This enables "design system" submit buttons that automatically
  * show loading state without prop drilling.
+ *
+ * ⚠️ FOOT-GUN: useFormStatus reads from the nearest PARENT <form>.
+ * If you call it in the same component that renders the <form>,
+ * it won't work — it must be in a CHILD component rendered inside
+ * the form. That's why SubmitButton is a separate component.
  */
 import { useFormStatus } from 'react-dom';
 

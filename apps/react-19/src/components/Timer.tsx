@@ -18,6 +18,11 @@ export default function Timer() {
   useEffect(() => {
     if (isRunning) {
       intervalRef.current = setInterval(() => {
+        // ⚠️ FOOT-GUN: We use the functional updater `s => s + 1`
+        // instead of `setSeconds(seconds + 1)`. Without the updater,
+        // `seconds` is captured at the time the effect runs (a stale
+        // closure) — it would always be 0, so the timer would be
+        // stuck at 1.
         setSeconds((s) => s + 1);
       }, 1000);
     }
